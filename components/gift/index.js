@@ -51,7 +51,7 @@ export default class Gift {
       await new Promise((resolve, reject) => {
         setTimeout(() => {
           // Получаем ответ запроса
-          this.imageId = response.giftId
+          this.giftId = response.giftId
           resolve()
         }, 3500)
       })
@@ -65,13 +65,13 @@ export default class Gift {
   }
 
   /**
-   * Открывает полученный подарок
+   * Открывает подарок
    */
-  async open () {
+  open () {
     if (this.isLoading) return
-    if (this.imageId) this.close()
 
-    this.loading()
+    if (this.giftId) this.close()
+    else this.loading()
   }
 
   /**
@@ -85,7 +85,7 @@ export default class Gift {
    * Показываем полученный подарок
    */
   display () {
-    this.$image.setAttribute('src', `/images/gift${this.imageId}.png`)
+    this.$image.setAttribute('src', `/images/gift${this.giftId}.png`)
     this.$image.classList.add('animated', 'bounceIn')
     this.$title.classList.add('hidden')
     this.$desc.innerText = 'Теперь подарок Ваш!'
